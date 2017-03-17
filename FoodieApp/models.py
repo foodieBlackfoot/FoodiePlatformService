@@ -10,8 +10,7 @@ class FoodProvider(models.Model):
     Tag = models.CharField(max_length=500)
     Address = models.CharField(max_length=500)
     Phone = models.CharField(max_length=500)
-    Email = models.CharField(max_length=500)
     Logo = models.ImageField(upload_to='foodprovider_logo/', blank=False)
 
     def __str__(self):
-        return self.name
+        return self.Name

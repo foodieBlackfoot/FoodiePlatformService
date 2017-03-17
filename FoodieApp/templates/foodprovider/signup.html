@@ -8,7 +8,7 @@
 </head>
 <body>
   Food Provider signup page
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form }}
     {{ foodprovider_form }}
