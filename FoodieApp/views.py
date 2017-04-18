@@ -15,6 +15,22 @@ def home(request):
 def foodprovider_home(request):
     return render(request, 'foodprovider/home.html', {})
 
+@login_required(login_url='/foodprovider/sign-in/')
+def foodprovider_account(request):
+    return render(request, 'foodprovider/account.html', {})
+
+@login_required(login_url='/foodprovider/sign-in/')
+def foodprovider_meal(request):
+    return render(request, 'foodprovider/meal.html', {})
+
+@login_required(login_url='/foodprovider/sign-in/')
+def foodprovider_order(request):
+    return render(request, 'foodprovider/order.html', {})
+
+@login_required(login_url='/foodprovider/sign-in/')
+def foodprovider_report(request):
+    return render(request, 'foodprovider/report.html', {})
+
 def foodprovider_signup(request):
     user_form = UserForm()
     foodprovider_form = FoodProviderForm()
@@ -34,7 +50,7 @@ def foodprovider_signup(request):
             ))
             return redirect(foodprovider_home)
 
-    return render(request, 'foodprovider/signup.html', {
+    return render(request, 'foodprovider/sign_up.html', {
         'user_form': user_form,
         'foodprovider_form': foodprovider_form
     })

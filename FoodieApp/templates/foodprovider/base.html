@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+
+{% block title %} Food Provider {% endblock %}
+
+{% block sidebar %}
+  Hi, food provider {{request.user}}
+  <hr/>
+
+  <a href="{% url 'foodprovider-account' %}">Account</a>
+  -
+  <a href="{% url 'foodprovider-meal' %}">Meal</a>
+  -
+  <a href="{% url 'foodprovider-order' %}">Order</a>
+  -
+  <a href="{% url 'foodprovider-report' %}">Report</a>
+
+{% endblock %}
