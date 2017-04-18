@@ -6,10 +6,10 @@ from django.conf.urls.static import static
 from FoodieApp import views
 
 urlpatterns = [
-    # admin
+    # Admin
     url(r'^admin/', admin.site.urls),
 
-    # food provider
+    # Food provider
     url(r'^$', views.home),
     url(r'^foodprovider/$', views.foodprovider_home,
         name = 'foodprovider-home'),
@@ -22,7 +22,17 @@ urlpatterns = [
     url(r'^foodprovider/sign-up/$', views.foodprovider_signup,
         name = 'foodprovider-signup'),
 
-    # social auth
+    # Food provider dashboard urls
+    url(r'^foodprovider/account/$', views.foodprovider_account,
+        name = 'foodprovider-account'),
+    url(r'^foodprovider/meal/$', views.foodprovider_meal,
+        name = 'foodprovider-meal'),
+    url(r'^foodprovider/order/$', views.foodprovider_order,
+        name = 'foodprovider-order'),
+    url(r'^foodprovider/report/$', views.foodprovider_report,
+        name = 'foodprovider-report'),
+
+    # Social auth
     url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
     # convert-token: sign-up/sign-in
     # revoke-token: sign-out
