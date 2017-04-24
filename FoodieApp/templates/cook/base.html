@@ -1,0 +1,17 @@
+{% extends 'base_template.html' %}
+
+{% block title %} Cook {% endblock %}
+
+{% block sidebar %}
+  Hi, cook {{request.user}}
+  <hr/>
+
+  <a href="{% url 'cook-account' %}">Account</a>
+  -
+  <a href="{% url 'cook-meal' %}">Meal</a>
+  -
+  <a href="{% url 'cook-order' %}">Order</a>
+  -
+  <a href="{% url 'cook-report' %}">Report</a>
+
+{% endblock %}

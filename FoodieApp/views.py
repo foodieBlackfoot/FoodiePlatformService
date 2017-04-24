@@ -5,52 +5,52 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from FoodieApp.forms import UserForm
-from FoodieApp.forms import FoodProviderForm
+from FoodieApp.forms import CookForm
 
 # Create your views here.
 def home(request):
-    return redirect(foodprovider_home)
+    return redirect(cook_home)
 
-@login_required(login_url='/foodprovider/sign-in/')
-def foodprovider_home(request):
-    return render(request, 'foodprovider/home.html', {})
+@login_required(login_url='/cook/sign-in/')
+def cook_home(request):
+    return render(request, 'cook/base.html', {})
 
-@login_required(login_url='/foodprovider/sign-in/')
-def foodprovider_account(request):
-    return render(request, 'foodprovider/account.html', {})
+@login_required(login_url='/cook/sign-in/')
+def cook_account(request):
+    return render(request, 'cook/account.html', {})
 
-@login_required(login_url='/foodprovider/sign-in/')
-def foodprovider_meal(request):
-    return render(request, 'foodprovider/meal.html', {})
+@login_required(login_url='/cook/sign-in/')
+def cook_meal(request):
+    return render(request, 'cook/meal.html', {})
 
-@login_required(login_url='/foodprovider/sign-in/')
-def foodprovider_order(request):
-    return render(request, 'foodprovider/order.html', {})
+@login_required(login_url='/cook/sign-in/')
+def cook_order(request):
+    return render(request, 'cook/order.html', {})
 
-@login_required(login_url='/foodprovider/sign-in/')
-def foodprovider_report(request):
-    return render(request, 'foodprovider/report.html', {})
+@login_required(login_url='/cook/sign-in/')
+def cook_report(request):
+    return render(request, 'cook/report.html', {})
 
-def foodprovider_signup(request):
+def cook_signup(request):
     user_form = UserForm()
-    foodprovider_form = FoodProviderForm()
+    cook_form = CookForm()
 
     if request.method == "POST":
         user_form = UserForm(request.POST)
-        foodprovider_form = FoodProviderForm(request.POST, request.FILES)
+        cook_form = CookForm(request.POST, request.FILES)
 
-        if user_form.is_valid() and foodprovider_form.is_valid():
+        if user_form.is_valid() and cook_form.is_valid():
             new_user = User.objects.create_user(**user_form.cleaned_data)
-            new_foodprovider = foodprovider_form.save(commit=False)
-            new_foodprovider.User = new_user
-            new_foodprovider.save()
+            new_cook = cook_form.save(commit=False)
+            new_cook.User = new_user
+            new_cook.save()
             login(request, authenticate(
                 username = user_form.cleaned_data["username"],
                 password = user_form.cleaned_data["password"]
             ))
-            return redirect(foodprovider_home)
+            return redirect(cook_home)
 
-    return render(request, 'foodprovider/sign_up.html', {
+    return render(request, 'cook/sign_up.html', {
         'user_form': user_form,
-        'foodprovider_form': foodprovider_form
+        'cook_form': cook_form
     })
