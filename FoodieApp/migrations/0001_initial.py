@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='FoodProvider',
+            name='Cook',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Name', models.CharField(max_length=500)),
@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
                 ('Tag', models.CharField(max_length=500)),
                 ('Address', models.CharField(max_length=500)),
                 ('Phone', models.CharField(max_length=500)),
-                ('Logo', models.ImageField(upload_to='foodprovider_logo/')),
-                ('User', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='foodprovider', to=settings.AUTH_USER_MODEL)),
+                ('Logo', models.ImageField(upload_to='cook_logo/')),
+                ('User', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='cook', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
