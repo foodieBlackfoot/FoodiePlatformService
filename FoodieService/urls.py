@@ -9,7 +9,7 @@ urlpatterns = [
     # Admin
     url(r'^admin/', admin.site.urls),
 
-    # Food provider
+    # Cook
     url(r'^$', views.home),
     url(r'^cook/$', views.cook_home,
         name = 'cook-home'),
@@ -21,8 +21,10 @@ urlpatterns = [
         name = 'cook-sign-out'),
     url(r'^cook/sign-up/$', views.cook_signup,
         name = 'cook-signup'),
+    url(r'^cook/apply/$', views.cook_apply,
+        name = 'apply'),
 
-    # Food provider dashboard urls
+    # Cook dashboard urls
     url(r'^cook/account/$', views.cook_account,
         name = 'cook-account'),
     url(r'^cook/meal/$', views.cook_meal,

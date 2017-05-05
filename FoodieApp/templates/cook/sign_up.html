@@ -1,13 +1,12 @@
 {% extends 'base_signup.html' %}
 
 {% block title %}Sign Up{% endblock %}
-{% block heading %}Food Provider - Sign Up{% endblock %}
+{% block heading %}Cook - Sign Up{% endblock %}
 
 {% block content %}
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form }}
-    {{ cook_form }}
     <button type="submit">Sign Up</button>
   </form>
 {% endblock %}

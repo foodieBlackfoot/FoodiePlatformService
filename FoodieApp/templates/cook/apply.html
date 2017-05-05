@@ -1,0 +1,12 @@
+{% extends 'base_signup.html' %}
+
+{% block title %}Cook Application{% endblock %}
+{% block heading %}Cook - Apply{% endblock %}
+
+{% block content %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ cook_form }}
+    <button type="submit">Apply</button>
+  </form>
+{% endblock %}
