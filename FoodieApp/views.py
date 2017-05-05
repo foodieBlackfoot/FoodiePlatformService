@@ -8,30 +8,37 @@ from FoodieApp.forms import UserForm
 from FoodieApp.forms import CookForm
 from FoodieApp.models import Cook
 
+
 # Cooks
 @login_required(login_url='/cook/sign-in/')
 def home(request):
     return render(request, 'cook/home.html', {})
 
+
 @login_required(login_url='/cook/sign-in/')
 def cook_home(request):
     return render(request, 'cook/base.html', {})
+
 
 @login_required(login_url='/cook/sign-in/')
 def cook_account(request):
     return render(request, 'cook/account.html', {})
 
+
 @login_required(login_url='/cook/sign-in/')
 def cook_meal(request):
     return render(request, 'cook/meal.html', {})
+
 
 @login_required(login_url='/cook/sign-in/')
 def cook_order(request):
     return render(request, 'cook/order.html', {})
 
+
 @login_required(login_url='/cook/sign-in/')
 def cook_report(request):
     return render(request, 'cook/report.html', {})
+
 
 def cook_signup(request):
     user_form = UserForm()
@@ -41,14 +48,15 @@ def cook_signup(request):
         if user_form.is_valid():
             new_user = get_user_model().objects.create_user(**user_form.cleaned_data)
             login(request, authenticate(
-                email = user_form.cleaned_data["email"],
-                password = user_form.cleaned_data["password"]
+                email=user_form.cleaned_data["email"],
+                password=user_form.cleaned_data["password"]
             ))
             return redirect(cook_home)
 
     return render(request, 'cook/sign_up.html', {
         'user_form': user_form
     })
+
 
 @login_required(login_url='/cook/sign-in')
 def cook_apply(request):
@@ -65,6 +73,7 @@ def cook_apply(request):
     return render(request, 'cook/apply.html', {
         'cook_form': cook_form
     })
+
 
 # Helpers
 def is_cook(request):
