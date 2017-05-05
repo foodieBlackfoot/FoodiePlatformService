@@ -9,6 +9,7 @@ from django.conf import settings
 
 from .managers import UserManager
 
+
 # Cook Model
 class Cook(models.Model):
     User = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -25,6 +26,7 @@ class Cook(models.Model):
     def __str__(self):
         return self.Name
 
+
 # Customer Model
 class Customer(models.Model):
     User = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -36,6 +38,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.User.get_full_name()
+
 
 # Customerize User to use email as auth token
 class User(AbstractBaseUser, PermissionsMixin):
