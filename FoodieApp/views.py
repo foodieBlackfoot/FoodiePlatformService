@@ -46,7 +46,7 @@ def cook_signup(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            new_user = get_user_model().objects.create_user(**user_form.cleaned_data)
+            get_user_model().objects.create_user(**user_form.cleaned_data)
             login(request, authenticate(
                 email=user_form.cleaned_data["email"],
                 password=user_form.cleaned_data["password"]

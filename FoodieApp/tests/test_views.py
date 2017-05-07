@@ -10,7 +10,7 @@ class DefaultRegistrationTests(TestBase):
         Test the default registration backend.
 
     """
-    
+
     # default pages
     DEFAULT_SIGNUP_PAGE = 'base_signup.html'
 
