@@ -58,7 +58,7 @@ def cook_signup(request):
     })
 
 
-@login_required(login_url='/cook/sign-in')
+@login_required(login_url='/cook/sign-in/')
 def cook_apply(request):
     cook_form = CookForm
 
