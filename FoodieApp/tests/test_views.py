@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
 from FoodieApp.forms import UserForm
+from FoodieApp.models import Cook
 from FoodieApp.tests.test_base import TestBase
 
 
@@ -41,3 +42,141 @@ class DefaultRegistrationTests(TestBase):
                                       'password': self.DEFAULT_PASSWORD})
         self.assertEqual(200, resp.status_code)
         self.failIf(resp.context['user_form'].is_valid())
+
+    def test_signin_happycase(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.SIGNIN_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        islogin = self.client.login(username=self.DEFAULT_EMIAL,
+                                    password=self.DEFAULT_PASSWORD)
+        self.assertTrue(islogin)
+
+    def test_signin_wrong_password(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.SIGNIN_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        islogin = self.client.login(username=self.DEFAULT_EMIAL,
+                                    password="wrongpassword")
+        self.assertFalse(islogin)
+
+    def test_signin_wrong_email(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.SIGNIN_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        islogin = self.client.login(username="wrong_email@wrong.com",
+                                    password=self.DEFAULT_PASSWORD)
+        self.assertFalse(islogin)
+
+    def test_logout(self):
+        self.signup_new_user()
+        self.user_login()
+
+        resp = self.client.get(reverse(self.SIGNOUT_URL))
+        self.assertEquals(resp.status_code, 302)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_HOME_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/')
+
+    def test_cook_home_page(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOK_HOME_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_HOME_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/')
+
+    def test_cook_apply_page_availability(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOK_APPLY_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_APPLY_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/apply/')
+
+    def test_cook_apply_page(self):
+        self.signup_new_user()
+
+        with open(self.DEFAULT_LOGO, 'rb') as logo:
+            resp = self.client.post(reverse(self.COOK_APPLY_URL),
+                                    data={'Name': self.DEFAULT_NAME,
+                                          'Description': self.DEFAULT_DESC,
+                                          'Tag': self.DEFAULT_TAG,
+                                          'Address': self.DEFAULT_ADDRESS,
+                                          'Phone': self.DEFAULT_PHONE_NUMBER,
+                                          'Logo': logo})
+        self.assertRedirects(resp, reverse(self.COOK_HOME_URL))
+
+        new_cook = Cook.objects.get(Name=self.DEFAULT_NAME)
+        self.assertEqual(new_cook.Description, self.DEFAULT_DESC)
+        self.assertEqual(new_cook.Tag, self.DEFAULT_TAG)
+        self.assertEqual(new_cook.Address, self.DEFAULT_ADDRESS)
+        self.assertEqual(new_cook.Phone, self.DEFAULT_PHONE_NUMBER)
+
+    def test_cook_account_page(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOK_ACCOUNT_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_ACCOUNT_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/account/')
+
+    def test_cook_meal_page(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOK_MEAL_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_MEAL_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/meal/')
+
+    def test_cook_order_page(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOK_ORDER_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOK_ORDER_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/order/')
+
+    def test_cook_report_page(self):
+        self.signup_new_user()
+
+        resp = self.client.get(reverse(self.COOD_REPORT_URL))
+        self.assertEquals(resp.status_code, 200)
+
+        self.client.logout()
+
+        resp = self.client.get(reverse(self.COOD_REPORT_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/report/')
+
+    # Sign up for a new user
+    def signup_new_user(self):
+        self.client.post(reverse(self.SIGNUP_URL),
+                         data={'email': self.DEFAULT_EMIAL,
+                               'password': self.DEFAULT_PASSWORD})
+
+    # Log in with valid user
+    def user_login(self):
+        self.client.login(username=self.DEFAULT_EMIAL,
+                          password=self.DEFAULT_PASSWORD)
