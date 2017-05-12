@@ -133,6 +133,7 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+COOK_LOGO_ROOT = os.path.join(MEDIA_ROOT, 'cook_logo/')
 
 import dj_database_url
 db_from_env = dj_database_url.config()

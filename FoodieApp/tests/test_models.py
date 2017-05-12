@@ -1,7 +1,3 @@
-from PIL import Image
-from io import BytesIO
-
-from django.core.files.base import File
 from django.contrib.auth import get_user_model
 
 from FoodieApp.tests.test_base import TestBase
@@ -13,6 +9,9 @@ class UserModelsTests(TestBase):
         Test user related models: User, Cook, Customer
 
     """
+    DEFAULT_FIRST_NAME = "first_name"
+    DEFAULT_LAST_NAME = "last_name"
+    DEFAULT_RATING = "rating"
 
     def test_user_creation(self):
         user = self.create_user()
@@ -23,8 +22,9 @@ class UserModelsTests(TestBase):
         cook = self.create_cook(user)
         self.assertTrue(isinstance(cook, Cook))
         self.assertEqual(cook.__str__(), cook.Name)
+        self.delete_logo_file()
 
-    def test_customer_createion(self):
+    def test_customer_creation(self):
         user = self.create_user()
         customer = self.create_customer(user)
         self.assertTrue(isinstance(customer, Customer))
@@ -34,38 +34,28 @@ class UserModelsTests(TestBase):
     def create_user(self):
         return get_user_model().objects.create_user(
             email=self.DEFAULT_EMIAL,
-            first_name="first_name",
-            last_name="last_name",
+            first_name=self.DEFAULT_FIRST_NAME,
+            last_name=self.DEFAULT_LAST_NAME,
             is_active=False,
-            avatar="avatar_path")
+            avatar=self.DEFAULT_LOGO)
 
     def create_cook(self, user):
-        mocked_image = self.get_image_file()
+        mocked_image = self.get_logo_file()
         return Cook.objects.create(
             User=user,
-            Name="name",
-            Description="description",
-            Rating='rating',
-            Tag="tag",
-            Address="address",
-            Phone="phone",
+            Name=self.DEFAULT_NAME,
+            Description=self.DEFAULT_DESC,
+            Rating=self.DEFAULT_RATING,
+            Tag=self.DEFAULT_TAG,
+            Address=self.DEFAULT_ADDRESS,
+            Phone=self.DEFAULT_PHONE_NUMBER,
             Logo=mocked_image
         )
 
-    @staticmethod
-    def create_customer(user):
+    def create_customer(self, user):
         return Customer.objects.create(
             User=user,
-            Avatar="avatar",
-            Phone="phone",
-            Address="address"
+            Phone=self.DEFAULT_PHONE_NUMBER,
+            Address=self.DEFAULT_ADDRESS,
+            Avatar=self.DEFAULT_LOGO,
         )
-
-    @staticmethod
-    def get_image_file(name='test.png', ext='png', size=(50, 50),
-                       color=(256, 0, 0)):
-        file_obj = BytesIO()
-        image = Image.new("RGBA", size=size, color=color)
-        image.save(file_obj, ext)
-        file_obj.seek(0)
-        return File(file_obj, name=name)

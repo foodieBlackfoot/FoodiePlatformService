@@ -38,8 +38,8 @@ class DefaultRegistrationTests(TestBase):
 
     def test_signup_wrong_email_fail(self):
         resp = self.client.post(reverse(self.SIGNUP_URL),
-                                data={'email': self.WRONG_EMAIL_FORMAT,
-                                      'password': self.DEFAULT_PASSWORD})
+                                data={self.FIELD_EMAIL: self.WRONG_EMAIL_FORMAT,
+                                      self.FIELD_PASSWORD: self.DEFAULT_PASSWORD})
         self.assertEqual(200, resp.status_code)
         self.failIf(resp.context['user_form'].is_valid())
 
@@ -112,12 +112,12 @@ class DefaultRegistrationTests(TestBase):
 
         with open(self.DEFAULT_LOGO, 'rb') as logo:
             resp = self.client.post(reverse(self.COOK_APPLY_URL),
-                                    data={'Name': self.DEFAULT_NAME,
-                                          'Description': self.DEFAULT_DESC,
-                                          'Tag': self.DEFAULT_TAG,
-                                          'Address': self.DEFAULT_ADDRESS,
-                                          'Phone': self.DEFAULT_PHONE_NUMBER,
-                                          'Logo': logo})
+                                    data={self.FIELD_NAME: self.DEFAULT_NAME,
+                                          self.FIELD_DESC: self.DEFAULT_DESC,
+                                          self.FIELD_TAG: self.DEFAULT_TAG,
+                                          self.FIELD_ADDRESS: self.DEFAULT_ADDRESS,
+                                          self.FIELD_PHONE: self.DEFAULT_PHONE_NUMBER,
+                                          self.FIELD_LOGO: logo})
         self.assertRedirects(resp, reverse(self.COOK_HOME_URL))
 
         new_cook = Cook.objects.get(Name=self.DEFAULT_NAME)
@@ -125,6 +125,8 @@ class DefaultRegistrationTests(TestBase):
         self.assertEqual(new_cook.Tag, self.DEFAULT_TAG)
         self.assertEqual(new_cook.Address, self.DEFAULT_ADDRESS)
         self.assertEqual(new_cook.Phone, self.DEFAULT_PHONE_NUMBER)
+
+        self.delete_logo_file()
 
     def test_cook_account_page(self):
         self.signup_new_user()
@@ -173,8 +175,8 @@ class DefaultRegistrationTests(TestBase):
     # Sign up for a new user
     def signup_new_user(self):
         self.client.post(reverse(self.SIGNUP_URL),
-                         data={'email': self.DEFAULT_EMIAL,
-                               'password': self.DEFAULT_PASSWORD})
+                         data={self.FIELD_EMAIL: self.DEFAULT_EMIAL,
+                               self.FIELD_PASSWORD: self.DEFAULT_PASSWORD})
 
     # Log in with valid user
     def user_login(self):

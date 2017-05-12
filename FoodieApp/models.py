@@ -21,7 +21,7 @@ class Cook(models.Model):
     Tag = models.CharField(max_length=500)
     Address = models.CharField(max_length=500)
     Phone = models.CharField(max_length=500)
-    Logo = models.ImageField(upload_to='cook_logo/', blank=False)
+    Logo = models.ImageField(upload_to=settings.COOK_LOGO_ROOT, blank=False)
 
     def __str__(self):
         return self.Name
