@@ -41,7 +41,7 @@ class UserFormTests(TestBase):
                      self.FIELD_ADDRESS: self.DEFAULT_ADDRESS,
                      self.FIELD_PHONE: self.DEFAULT_PHONE_NUMBER}
         file_dict = {self.FIELD_LOGO: SimpleUploadedFile(upload_file.name,
-                                                upload_file.read())}
+                                                         upload_file.read())}
         cook_form = CookForm(post_dict, file_dict)
         saved_cook = cook_form.save(commit=False)
 
@@ -53,7 +53,7 @@ class UserFormTests(TestBase):
         self.assertEqual(saved_cook.Phone, self.DEFAULT_PHONE_NUMBER)
         self.assertIsNotNone(saved_cook.Logo)
 
-    def test_cook_invalid(self):
+    def test_cook_blank(self):
         cook_form = CookForm({})
 
         self.assertFalse(cook_form.is_valid())
@@ -67,7 +67,7 @@ class UserFormTests(TestBase):
         })
 
     # Customer
-    def test_customer_blank(self):
+    def test_customer_valid(self):
         customer_data = {self.FIELD_AVATAR: self.DEFAULT_LOGO,
                          self.FIELD_PHONE: self.DEFAULT_PHONE_NUMBER,
                          self.FIELD_ADDRESS: self.DEFAULT_ADDRESS}
