@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 
-from FoodieApp.tests.test_base import TestBase
-from FoodieApp.models import Cook, Customer
+from Identity.tests.test_base import TestBase
+from Identity.models import Cook, Customer
 
 
 class UserModelsTests(TestBase):

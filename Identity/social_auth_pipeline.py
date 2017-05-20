@@ -1,4 +1,4 @@
-from FoodieApp.models import Cook, Customer
+from Identity.models import Cook, Customer
 
 
 def create_user_by_type(backend, user, response, *args, **kwargs):

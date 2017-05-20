@@ -1,5 +1,5 @@
 """
-from FoodieApp import admin
+from Identity import admin
 from FoodieService import urls
 
 def test():

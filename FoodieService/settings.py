@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'FoodieApp',
+    'Identity',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 # AUTH Model
-AUTH_USER_MODEL = 'FoodieApp.User'
+AUTH_USER_MODEL = 'Identity.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

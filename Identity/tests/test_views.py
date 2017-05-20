@@ -1,9 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
-from FoodieApp.forms import UserForm
-from FoodieApp.models import Cook
-from FoodieApp.tests.test_base import TestBase
+from Identity.forms import UserForm
+from Identity.models import Cook
+from Identity.tests.test_base import TestBase
 
 
 class DefaultRegistrationTests(TestBase):

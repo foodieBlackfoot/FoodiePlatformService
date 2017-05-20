@@ -1,7 +1,7 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from FoodieApp.forms import UserForm, CookForm, CustomerForm
-from FoodieApp.tests.test_base import TestBase
+from Identity.forms import UserForm, CookForm, CustomerForm
+from Identity.tests.test_base import TestBase
 
 
 class UserFormTests(TestBase):
