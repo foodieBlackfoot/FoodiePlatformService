@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from FoodieApp.models import Cook, Customer
+from Identity.models import Cook, Customer
 
 
 class UserForm(forms.ModelForm):
