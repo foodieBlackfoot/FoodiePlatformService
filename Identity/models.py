@@ -71,6 +71,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         return self.first_name
 
+    def get_avatar(self):
+        """
+        Returns the path to the avatar
+        """
+        return self.avatar
+
     @property
     def is_staff(self):
         return self.is_superuser

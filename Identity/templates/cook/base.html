@@ -3,16 +3,29 @@
 {% block title %} Cook {% endblock %}
 
 {% block sidebar %}
-  Hi, cook {{request.user}}
-  <hr/>
 
-  <a href="{% url 'cook-account' %}">Account</a>
-  -
-  <a href="{% url 'cook-meal' %}">Meal</a>
-  -
-  <a href="{% url 'cook-order' %}">Order</a>
-  -
-  <a href="{% url 'cook-report' %}">Report</a>
+  <div class="sidebar-header text-center">
+    <img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.get_avatar }}"
+         width="70" height="70" />
+    <br/>
+    <br/>
+    <span class="greeting">Hi, {{ request.user.get_full_name }}</span>
+  </div>
+
+  <div class="list-group">
+    <span class="text-uppercase">Dashboard</span>
+    <a href="{% url 'cook-order' %}" class="list-group-item">Orders</a>
+    <a href="{% url 'cook-meal' %}" class="list-group-item">Meals</a>
+    <a href="{% url 'cook-report' %}" class="list-group-item">Reports</a>
+
+    <span class="text-uppercase">Profile</span>
+    <a href="{% url 'cook-account' %}" class="list-group-item">Account</a>
+  </div>
+
+  <div class="text-center">
+    <a href="{% url 'cook-sign-out' %}?next={{ request.path }}"
+       class="btn btn-pink">Log out</a>
+  </div>
 
 {% endblock %}
 
