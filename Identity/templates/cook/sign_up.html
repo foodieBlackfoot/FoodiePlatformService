@@ -1,4 +1,5 @@
 {% extends 'base_signup.html' %}
+{% load bootstrap3 %}
 
 {% block title %}Sign Up{% endblock %}
 {% block heading %}Cook - Sign Up{% endblock %}
@@ -6,7 +7,9 @@
 {% block content %}
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ user_form }}
-    <button type="submit">Sign Up</button>
+    {% bootstrap_form user_form %}
+    <button type="submit" class="btn btn-pink">Sign Up</button>
   </form>
+  <br/>
+  <a href="{% url 'cook-sign-in' %}">Already have an account?</a>
 {% endblock %}
