@@ -15,7 +15,18 @@
 
 </head>
 <body>
-  {% block page %}{% endblock %}
-  {% block sidebar%}{% endblock %}
+
+  <div class="contain-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 sidebar">
+        {% block sidebar%}{% endblock %}
+      </div>
+
+      <div class="col-lg-10 col-md-10 col-sm-10 content">
+        {% block page %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
