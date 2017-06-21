@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Identity',
+    'CookManagement',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
@@ -129,12 +130,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'common-static'),)
 
 LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 COOK_LOGO_ROOT = os.path.join(MEDIA_ROOT, 'cook_logo/')
+MEAL_IMAGE_ROOT = os.path.join(MEDIA_ROOT, 'meal_image/')
+
 
 import dj_database_url
 db_from_env = dj_database_url.config()
