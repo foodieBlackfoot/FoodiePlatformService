@@ -4,7 +4,7 @@ from Identity.models import Cook, Customer
 
 
 class UserForm(forms.ModelForm):
-    email = forms.EmailField(label=("E-mail"))
+    email = forms.EmailField(label="E-mail")
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:

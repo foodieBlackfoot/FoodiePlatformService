@@ -17,27 +17,7 @@ def home(request):
 
 @login_required(login_url='/cook/sign-in/')
 def cook_home(request):
-    return render(request, 'cook/base.html', {})
-
-
-@login_required(login_url='/cook/sign-in/')
-def cook_account(request):
-    return render(request, 'cook/account.html', {})
-
-
-@login_required(login_url='/cook/sign-in/')
-def cook_meal(request):
-    return render(request, 'cook/meal.html', {})
-
-
-@login_required(login_url='/cook/sign-in/')
-def cook_order(request):
-    return render(request, 'cook/order.html', {})
-
-
-@login_required(login_url='/cook/sign-in/')
-def cook_report(request):
-    return render(request, 'cook/report.html', {})
+    return render(request, 'base.html', {})
 
 
 def cook_signup(request):
