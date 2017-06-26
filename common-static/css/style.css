@@ -7,6 +7,14 @@ body {
     background-color: #3F3F63;
 }
 
+.bg-gray {
+  background-color: #88A1B2;
+}
+
+.text-white {
+  color: white;
+}
+
 .btn-pink {
     color: white;
     background-color: #EE5462;

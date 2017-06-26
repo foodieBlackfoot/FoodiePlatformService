@@ -17,7 +17,7 @@ class TestBase(TestCase):
     COOK_HOME_URL = 'cook-home'
     COOK_APPLY_URL = 'apply'
     COOK_ACCOUNT_URL = 'cook-account'
-    COOK_MEAL_URL = 'cook-meal'
+    COOK_MENU_URL = 'cook-menu'
     COOK_ORDER_URL = 'cook-order'
     COOD_REPORT_URL = 'cook-report'
 
@@ -54,5 +54,6 @@ class TestBase(TestCase):
         return File(file_obj, name=self.DEFAULT_LOGO_NAME)
 
     def delete_logo_file(self):
-        name = os.path.join(settings.COOK_LOGO_ROOT, self.DEFAULT_LOGO_NAME)
+        name = os.path.join(settings.MEDIA_ROOT+settings.COOK_LOGO_ROOT,
+                            self.DEFAULT_LOGO_NAME)
         os.remove(name)
