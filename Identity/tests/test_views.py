@@ -139,16 +139,17 @@ class DefaultRegistrationTests(TestBase):
         resp = self.client.get(reverse(self.COOK_ACCOUNT_URL))
         self.assertRedirects(resp, '/cook/sign-in/?next=/cook/account/')
 
-    def test_cook_meal_page(self):
+    def test_cook_menu_page(self):
         self.signup_new_user()
+        self.apply_cook()
 
-        resp = self.client.get(reverse(self.COOK_MEAL_URL))
+        resp = self.client.get(reverse(self.COOK_MENU_URL))
         self.assertEquals(resp.status_code, 200)
 
         self.client.logout()
 
-        resp = self.client.get(reverse(self.COOK_MEAL_URL))
-        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/meal/')
+        resp = self.client.get(reverse(self.COOK_MENU_URL))
+        self.assertRedirects(resp, '/cook/sign-in/?next=/cook/menu/')
 
     def test_cook_order_page(self):
         self.signup_new_user()
@@ -182,3 +183,14 @@ class DefaultRegistrationTests(TestBase):
     def user_login(self):
         self.client.login(username=self.DEFAULT_EMIAL,
                           password=self.DEFAULT_PASSWORD)
+
+    # Become a cook
+    def apply_cook(self):
+        with open(self.DEFAULT_LOGO, 'rb') as logo:
+            self.client.post(reverse(self.COOK_APPLY_URL),
+                             data={self.FIELD_NAME: self.DEFAULT_NAME,
+                                   self.FIELD_DESC: self.DEFAULT_DESC,
+                                   self.FIELD_TAG: self.DEFAULT_TAG,
+                                   self.FIELD_ADDRESS: self.DEFAULT_ADDRESS,
+                                   self.FIELD_PHONE: self.DEFAULT_PHONE_NUMBER,
+                                   self.FIELD_LOGO: logo})

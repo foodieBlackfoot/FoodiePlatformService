@@ -4,6 +4,11 @@
 
 {% block sidebar %}
 
+  {% url 'cook-order' as cook_order_url%}
+  {% url 'cook-menu' as cook_menu_url%}
+  {% url 'cook-report' as cook_report_url%}
+  {% url 'cook-account' as cook_account_url%}
+
   <div class="sidebar-header text-center">
     <img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.get_avatar }}"
          width="70" height="70" />
@@ -14,12 +19,12 @@
 
   <div class="list-group">
     <span class="text-uppercase">Dashboard</span>
-    <a href="{% url 'cook-order' %}" class="list-group-item">Orders</a>
-    <a href="{% url 'cook-meal' %}" class="list-group-item">Meals</a>
-    <a href="{% url 'cook-report' %}" class="list-group-item">Reports</a>
+    <a href="{% url 'cook-order' %}" class="list-group-item {% if request.path == cook_order_url %} active {% endif %}">Orders</a>
+    <a href="{% url 'cook-menu' %}" class="list-group-item {% if request.path == cook_menu_url %} active {% endif %}">Menu</a>
+    <a href="{% url 'cook-report' %}" class="list-group-item {% if request.path == cook_report_url %} active {% endif %}">Reports</a>
 
     <span class="text-uppercase">Profile</span>
-    <a href="{% url 'cook-account' %}" class="list-group-item">Account</a>
+    <a href="{% url 'cook-account' %}" class="list-group-item {% if request.path == cook_account_url %} active {% endif %}">Account</a>
   </div>
 
   <div class="text-center">

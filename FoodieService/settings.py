@@ -134,10 +134,10 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'common-static'),)
 
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
-COOK_LOGO_ROOT = os.path.join(MEDIA_ROOT, 'cook_logo/')
-MEAL_IMAGE_ROOT = os.path.join(MEDIA_ROOT, 'meal_image/')
+COOK_LOGO_ROOT = 'cook_logo/'
+MEAL_IMAGE_ROOT = 'meal_image/'
 
 
 import dj_database_url
