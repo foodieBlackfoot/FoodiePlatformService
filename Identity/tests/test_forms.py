@@ -1,7 +1,9 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from Identity.forms import UserForm, CookForm, CustomerForm
+from Identity.forms import UserForm, CustomerForm
 from Identity.tests.test_base import TestBase
+
+from CookManagement.forms import CookForm
 
 
 class UserFormTests(TestBase):

@@ -103,3 +103,7 @@ body {
 .content {
     padding: 0 40px;
 }
+
+.content .panel {
+    border: none;
+}

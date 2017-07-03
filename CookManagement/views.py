@@ -2,13 +2,24 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 
-from CookManagement.forms import MealForm
+from CookManagement.forms import MealForm, CookFormForEdit
 from CookManagement.models import Meal
 
 
 @login_required(login_url='/cook/sign-in/')
 def cook_account(request):
-    return render(request, 'account.html', {})
+    cook_form = CookFormForEdit(instance=request.user.cook)
+
+    if request.method == "POST":
+        cook_form = CookFormForEdit(request.POST,
+                                    request.FILES,
+                                    instance=request.user.cook)
+        if cook_form.is_valid():
+            cook_form.save()
+
+    return render(request, 'account.html', {
+        "cook_form": cook_form
+    })
 
 
 # Create your views here.

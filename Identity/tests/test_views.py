@@ -130,6 +130,7 @@ class DefaultRegistrationTests(TestBase):
 
     def test_cook_account_page(self):
         self.signup_new_user()
+        self.apply_cook()
 
         resp = self.client.get(reverse(self.COOK_ACCOUNT_URL))
         self.assertEquals(resp.status_code, 200)

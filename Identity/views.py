@@ -5,8 +5,9 @@ from django.contrib.auth import login
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from Identity.forms import UserForm
-from Identity.forms import CookForm
 from Identity.models import Cook
+
+from CookManagement.forms import CookForm
 
 
 # Cooks
