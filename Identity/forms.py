@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from Identity.models import Cook, Customer
+from Identity.models import Customer
 
 
 class UserForm(forms.ModelForm):
@@ -10,12 +10,6 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("email", "password",)
-
-
-class CookForm(forms.ModelForm):
-    class Meta:
-        model = Cook
-        fields = ("Name", "Description", "Tag", "Address", "Phone", "Logo")
 
 
 class CustomerForm(forms.ModelForm):
