@@ -4,6 +4,7 @@ from io import BytesIO
 
 from django.core.files.base import File
 from django.test import TestCase
+from django.urls import reverse
 
 from FoodieService import settings
 
@@ -45,6 +46,28 @@ class TestBase(TestCase):
     FIELD_PHONE = 'Phone'
     FIELD_LOGO = 'Logo'
     FIELD_AVATAR = 'Avatar'
+
+    # Sign up for a new user
+    def signup_new_user(self):
+        self.client.post(reverse(self.SIGNUP_URL),
+                         data={self.FIELD_EMAIL: self.DEFAULT_EMIAL,
+                               self.FIELD_PASSWORD: self.DEFAULT_PASSWORD})
+
+    # Log in with valid user
+    def user_login(self):
+        self.client.login(username=self.DEFAULT_EMIAL,
+                          password=self.DEFAULT_PASSWORD)
+
+    # Become a cook
+    def apply_cook(self):
+        with open(self.DEFAULT_LOGO, 'rb') as logo:
+            self.client.post(reverse(self.COOK_APPLY_URL),
+                             data={self.FIELD_NAME: self.DEFAULT_NAME,
+                                   self.FIELD_DESC: self.DEFAULT_DESC,
+                                   self.FIELD_TAG: self.DEFAULT_TAG,
+                                   self.FIELD_ADDRESS: self.DEFAULT_ADDRESS,
+                                   self.FIELD_PHONE: self.DEFAULT_PHONE_NUMBER,
+                                   self.FIELD_LOGO: logo})
 
     def get_logo_file(self, ext='png', size=(50, 50), color=(256, 0, 0)):
         file_obj = BytesIO()
