@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 
 from CookManagement.forms import MealForm, CookFormForEdit
-from CookManagement.models import Meal
+from CookManagement.models import Meal, Order
 
 
 @login_required(login_url='/cook/sign-in/')
@@ -68,7 +68,16 @@ def cook_edit_meal(request, meal_id):
 
 @login_required(login_url='/cook/sign-in/')
 def cook_order(request):
-    return render(request, 'order.html', {})
+    if request.method == "POST":
+        order = Order.objects.get(id=request.POST["id"], Cook=request.user.cook)
+        if order.Status == Order.CREATED:
+            order.Status = Order.COOKING
+        elif order.Status == Order.COOKING:
+            order.Status = Order.READY
+        order.save()
+
+    orders = Order.objects.filter(Cook=request.user.cook).order_by("-id")
+    return render(request, 'order.html', {"orders": orders})
 
 
 @login_required(login_url='/cook/sign-in/')
