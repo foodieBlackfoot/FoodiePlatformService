@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from Identity import views as identity_views
 from CookManagement import views as cook_views
+from CookManagement import apis
 
 urlpatterns = [
                   # Admin
@@ -45,4 +46,7 @@ urlpatterns = [
                       include('rest_framework_social_oauth2.urls')),
                   # convert-token: sign-up/sign-in
                   # revoke-token: sign-out
+
+                  # APIS
+                  url(r'^api/customer/cooks/$', apis.customer_get_cooks)
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
