@@ -24,7 +24,7 @@
               <!--TODO: Make order details expandable -->
               <td>
                 {% for detail in order.order_detail.all %}
-                  {{ detail.Meal.Name }}: {{ detail.Meal.Price }} x {{ detail.Quantity }} = ${{ detail.SubtotalPrice }}
+                  {{ detail.Meal.Name }}: {{ detail.Meal.Price }} x {{ detail.Quantity }} = ${{ detail.SubTotalPrice }}
                 {% endfor %}
               </td>
               <td>{{ order.Customer }}</td>
