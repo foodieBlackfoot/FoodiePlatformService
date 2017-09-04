@@ -1,11 +1,12 @@
+from django.conf import settings
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.conf import settings
-from django.conf.urls.static import static
-from Identity import views as identity_views
+
 from CookManagement import views as cook_views
-from CookManagement import apis
+from Identity import views as identity_views
+from api.customer import apis
 
 urlpatterns = [
                   # Admin
@@ -47,6 +48,11 @@ urlpatterns = [
                   # convert-token: sign-up/sign-in
                   # revoke-token: sign-out
 
-                  # APIS
-                  url(r'^api/customer/cooks/$', apis.customer_get_cooks)
+                  # APIS for customers
+                  url(r'^api/customer/cooks/$', apis.customer_get_cooks),
+                  url(r'^api/customer/meals/(?P<cook_id>\d+)/$',
+                      apis.customer_get_meals),
+                  url(r'^api/customer/order/add/$', apis.customer_add_order),
+                  url(r'^api/customer/order/latest/$',
+                      apis.customer_get_latest_order)
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
